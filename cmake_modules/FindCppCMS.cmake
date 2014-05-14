@@ -1,0 +1,5 @@
+find_path(CppCMS_INCLUDE_DIRS cppcms/application.h)
+find_library(CppCMS_LIBRARIES cppcms)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(CppCMS DEFAULT_MSG CppCMS_LIBRARIES CppCMS_INCLUDE_DIRS)
