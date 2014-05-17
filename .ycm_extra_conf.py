@@ -15,6 +15,8 @@ flags = [
 '-I', './src',
 '-isystem', '/usr/include',         # Boost and OpenSSL are here
 '-isystem', '/usr/local/include',   # CppCMS is here
+
+# Without the two below, nothing works
 '-isystem', '/usr/lib/llvm-3.4/include',
 '-isystem', '/usr/lib/clang/3.4/include'
 ]
