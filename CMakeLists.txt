@@ -18,7 +18,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost COMPONENTS thread system regex program_options REQUIRED)
+find_package(Boost COMPONENTS thread system regex program_options filesystem REQUIRED)
 
 find_package(OpenSSL REQUIRED)
 find_package(CppCMS REQUIRED)

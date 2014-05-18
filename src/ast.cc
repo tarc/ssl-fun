@@ -7,6 +7,7 @@
 #include <boost/asio/ssl.hpp>
 
 #include <boost/program_options.hpp>
+#include <boost/filesystem.hpp>
 
 namespace po = boost::program_options;
 
@@ -28,30 +29,51 @@ class RandomFSA
 
 int main(int argc, char **argv)
 {
-	po::options_description desc("Available options");
-	desc.add_options()
-		("help", "help message")
-		("host", po::value<string>(), "host address")
-		("port", po::value<uint16_t>(), "host port")
-		;
-
+	po::options_description show("Available options");
 	po::variables_map vm;
-	po::store(po::parse_command_line(argc, argv, desc), vm);
-	po::notify(vm);
+
+	string target;
+
+	try
+	{
+		po::options_description desc("Hidden options");
+		show.add_options()
+			("help,h", "Show this help message")
+			;
+		desc.add_options()
+			("target", po::value< string >(&target), "Target host")
+			;
+		desc.add(show);
+
+		po::positional_options_description posDesc;
+		posDesc.add("target", 1);
+
+		po::store(po::command_line_parser(argc, argv).
+				options(desc).
+				positional(posDesc).run(), vm);
+		po::notify(vm);
+
+	}
+	catch(exception &e)
+	{
+		cerr << "Error: " << e.what() << endl;
+		return EXIT_FAILURE;
+	}
+	catch(...)
+	{
+		cerr << "Unknown exception!" << endl;
+	}
 
 	if (vm.count("help"))
 	{
-		cout << desc << "\n";
-		return EXIT_FAILURE;
+		boost::filesystem::path p = argv[0];
+		cout << "Usage: " << p.stem().string() << " [options]" << endl;
+		cout << show;
 	}
 
-	if (vm.count("port"))
+	if (vm.count("target"))
 	{
-		cout << "Port: " << vm["port"].as<uint16_t>() << "\n";
-	}
-	else
-	{
-		cout << "Port not set.\n";
+		cout << target << endl;
 	}
 
 	return EXIT_SUCCESS;
