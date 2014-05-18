@@ -44,7 +44,7 @@ class Target
 						boost::match_default))
 			{
 				host = matches[1];
-				port = std::stoi(matches[2]);
+				port = matches[2].matched ? std::stoi(matches[2]) : 80;
 				return true;
 			}
 
