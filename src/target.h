@@ -24,7 +24,20 @@ class Target
 		uint16_t getPort() const
 		{ return port; }
 
+		friend std::ostream&
+			operator<<(std::ostream& os, const Target &target)
+			{
+				if(target)
+				{
+					os << target.getHost() << ":" << target.getPort() << endl;
+				}
+				else
+				{
+					os << "Invalid target" << endl;
+				}
 
+				return os;
+			}
 	private:
 		string host;
 		uint16_t port;

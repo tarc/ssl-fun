@@ -19,17 +19,4 @@ Target::parseUrl(const string &tagetStr)
 	return false;
 }
 
-std::ostream&
-operator<<(std::ostream& os, const Target &target)
-{
-	if(target)
-	{
-		os << target.getHost() << ":" << target.getPort() << endl;
-	}
-	else
-	{
-		os << "Invalid target" << endl;
-	}
 
-	return os;
-}
