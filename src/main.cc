@@ -8,7 +8,8 @@
 
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/regex.hpp>
+
+#include "target.h"
 
 namespace po = boost::program_options;
 
@@ -27,58 +28,6 @@ class RandomFSA
 		State state;
 
 };
-
-class Target
-{
-	public:
-		Target(const string &targetStr)
-			: matches(parseUrl(targetStr))
-		{ }
-
-		bool parseUrl(const string &tagetStr)
-		{
-			boost::match_results<string::const_iterator> matches;
-			static const boost::regex urlParser("([\\w.]+)(?::(\\d+))?");
-
-			if(regex_match(tagetStr, matches, urlParser,
-						boost::match_default))
-			{
-				host = matches[1];
-				port = matches[2].matched ? std::stoi(matches[2]) : 80;
-				return true;
-			}
-
-			return false;
-		}
-
-		operator bool() const
-		{ return matches; }
-
-		const string getHost() const
-		{ return host; }
-
-		uint16_t getPort() const
-		{ return port; }
-
-	private:
-		string host;
-		uint16_t port;
-		bool matches;
-};
-
-std::ostream& operator<<(std::ostream& os, const Target &target)
-{
-	if(target)
-	{
-		os << target.getHost() << ":" << target.getPort() << endl;
-	}
-	else
-	{
-		os << "Invalid target" << endl;
-	}
-
-	return os;
-}
 
 int main(int argc, char **argv)
 {
