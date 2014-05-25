@@ -21,15 +21,3 @@ endif ()
 
 add_subdirectory (src)
 add_subdirectory (test)
-
-enable_testing ()
-file (GLOB TEST_SOURCES test/*.cc)
-foreach (test_source ${TEST_SOURCES})
-	get_filename_component(test_src_cmd ${test_source} NAME_WE)
-	add_test (NAME ${test_src_cmd}-test COMMAND ${test_src_cmd})
-	list(APPEND TESTS ${test_src_cmd})
-endforeach ()
-
-add_custom_target (tests
-	COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${TESTS})
-
