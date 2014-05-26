@@ -17,4 +17,3 @@ endforeach ( )
 
 add_custom_target (tests
 	COMMAND ${CMAKE_CTEST_COMMAND} DEPENDS ${TESTS})
-

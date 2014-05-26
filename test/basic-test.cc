@@ -5,7 +5,15 @@
 
 BOOST_AUTO_TEST_CASE( basic_teste )
 {
-	Target target( "www.google.com:8080" );
+	Target target01( "www.google.com:8080" );
+	BOOST_CHECK( target01 );
 
-	BOOST_CHECK( target );
+	Target target02( "192.168.9.2:8080" );
+	BOOST_CHECK( target02 );
+
+	Target target03( "192.168.9.2" );
+	BOOST_CHECK( target03 );
+
+	Target target04( "casadavovo" );
+	BOOST_CHECK( target04 );
 }

@@ -82,6 +82,7 @@ int main(int argc, char **argv)
 
 		if(target)
 		{
+			cout << target;
 			return EXIT_SUCCESS;
 		}
 		else
